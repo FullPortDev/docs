@@ -1,10 +1,17 @@
+## TODO SDK DESIGN - December 12th 2023
+- [ ] logging
+- [ ] combining upload and processing
+- [ ] Batch Operations
+- [ ] explain pydantic extraction better
+- [ ] get doc content
+- [ ] 
+
 # Documentation TODO Nov 28th 2023
 - [ ] authentication
 - [ ] async vs sync interface
 - [ ] improve the FastAPI openapi documentation to be able to auto-import it
 - [ ] about section
 - [ ] quick start
-
 
 ## 
 - [ ] upload
@@ -51,7 +58,6 @@ ezllm.scan(docs).run(QA(["Who was the invoice for?", "What was the invoices paym
 ```
 
 
-
 # Examples
 ## Search
 - embedded search
@@ -64,6 +70,8 @@ ezllm.scan(docs).run(QA(["Who was the invoice for?", "What was the invoices paym
 - extraction
 - summarization
 
+- brail code translator for brail keyboards
+  - perhaps even use it to parse relevant information from a website and be able to display it to the user
 
 # Use Cases
 - [ ] frame by frame comparison
