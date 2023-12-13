@@ -1,0 +1,40 @@
+---
+title: Webscraping
+description: EzLLM How to Webscrape
+---
+
+```py
+import ezllm
+from ezllm.methods import Extract
+from pydantic import BaseModel, Field
+
+# 1. define the structure of the data you want to extract
+class ItemModel(BaseModel):
+    """extract the fields for each item"""
+    item: str = Field(
+        ...,
+        description="name of the item"
+    )
+    description: str = Field(
+        ...,
+        description="description of the item"
+    )
+    price: float = Field(
+        ...,
+        description="price of the item"
+    )
+
+
+class ExtractModel(BaseModel):
+    """extract data from item"""
+    items: List[ItemModel] = Field(
+        ...,
+        description="list of items extracted from provided text"
+    )
+
+# 2. Create the web document
+doc = WebDocument("https://example.com")
+
+# 3. run the extract method
+doc.scan().run(Extract(model=ExtractModel))
+```

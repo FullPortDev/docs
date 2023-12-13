@@ -1,0 +1,47 @@
+---
+title: Collection
+description: 'EzLLM Collection'
+---
+
+Collections are groupings of Documents
+
+## Searchable Collection
+Search Collections save each sub document in a vector database for semantic search, enabling semantic search on the documents within the collection.
+
+
+## Searching a Collection
+Will return sub documents that are relevant to the query. Only works with embedded collections.
+
+```py
+await col.search("SEC Filings Mentioning Climate Change")
+```
+
+## Filtering a Collection
+returns all context from page 1 for all documents in a collection
+
+```py
+await col.filter(page=1).search("who is the author of the paper?")
+```
+
+
+## Props
+<ParamField path="name" type="string" required>
+    the name of the collection, must be unique to your workspace
+</ParamField>
+
+<ParamField path="type" type="enum" default="storage">
+    the collection type
+    - storage
+    - embedded
+    - data
+</ParamField>
+
+<ParamField query="model" type="enum" default="instruct-xl">
+    the embedding model to use
+    - instruct-xl
+    - openai-text-embedding-ada-002
+</ParamField>
+
+<ParamField query="ttl" type="enum" default="None">
+    Number of hours for the collection to live before it is deleted
+</ParamField>

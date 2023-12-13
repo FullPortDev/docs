@@ -1,0 +1,82 @@
+---
+title: Collection
+description: 'EzLLM Collection'
+---
+
+Collections are groupings of Documents
+
+## Collection
+The default collection saves the parsed documents as plain text.
+
+
+## Search Collection
+Search Collections save each sub document in a vector database for semantic search, enabling semantic search on the documents within the collection.
+
+
+## Data Collection (WIP)
+Is used for tabular data. Data Collections provide different methods leveraging the LLM to generate queries on your data.
+
+
+# Code Snippets
+
+## Creating a Collection
+```py
+col = Collection.create(name="Name Of Collection", type="embedded", ttl=24)
+```
+
+## Retrieving a Collection
+```py
+col = Collection("Name of Collection")
+
+# or by id
+col = Collection(id="col_id")
+```
+
+## Updating a Collection
+```py
+col.update(name="New Name")
+```
+
+## Deleteing a Collection
+```py
+col.delete()
+```
+
+## Uploading a Document to the Collection
+```py
+# the simplest way
+doc = await col.upload(file)
+
+# but you can also provide params
+doc = await col.upload(file, name="My Document", type="pdf", ttl=1)
+```
+
+## Filtering a Collection
+returns all context from page 1 for all documents in a collection
+
+```py
+await col.filter(page=1)
+```
+
+
+## Props
+<ParamField path="name" type="string" required>
+    the name of the collection, must be unique to your workspace
+</ParamField>
+
+<ParamField path="type" type="enum" default="storage">
+    the collection type
+    - storage
+    - embedded
+    - data
+</ParamField>
+
+<ParamField query="model" type="enum" default="instruct-xl">
+    the embedding model to use
+    - instruct-xl
+    - openai-text-embedding-ada-002
+</ParamField>
+
+<ParamField query="ttl" type="enum" default="None">
+    Number of hours for the collection to live before it is deleted
+</ParamField>

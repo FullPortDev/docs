@@ -1,71 +1,179 @@
 ---
 title: Introduction
-description: 'Welcome to the home of your new documentation'
+description: 'Welcome to EzLLM, the best way to develop LLM Applications'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
-/>
+        <img
+                    className="block dark:hidden"
+                    src="/images/hero-light.svg"
+                    alt="Hero Light"
+                />
+        <img
+                    className="hidden dark:block"
+                    src="/images/hero-dark.svg"
+                    alt="Hero Dark"
+                />
 
-## Setting up
+# Goal
+The goal of EzLLM is to provide the simplest interface for creating LLM based applications
 
-The first step to world-class documentation is setting up your editing environnments.
+EzLLM simplifies the process of 
+1. File parsing
+2. Storage
+3. Retrieval
+4. LLM optimization
+5. LLM output parsing
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
 
-## Make it yours
+# Fundamental Concepts
+## Document
+A document is a file uploaded to and parsed by EzLLm.
 
-Update your docs to your brand and add valuable content for the best user conversion.
+Valid file types include
+- pdf
+- txt
+- md
+- html
+- csv, tsv
+- png, jpeg, webp
 
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/components/accordion"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/showcase"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+## Collection
+a collection is a set of documents with shared method of storage. There's two main methods of storage within a collection.
+
+### 2. Embedded Collection
+where the data is ran through an embedding model and stored in a vector database, enabling semantic search on the documents within the collection.
+
+### 3. Text Collection
+Where the data is stored as plain text, reducing cost & parsing time. This is useful when you don't need to search a collection or document.
+
+# Developer Console
+you can view your usage and diagnostics in the [developer console](<https://console.ezllm.io>)
+
+# Quickstart
+to get started, read our [quickstart](/quickstart)
+
+# Use Cases
+## 1. Semantic Search
+If you want to build a search engine based off of PDFs & websites.
+
+The following is an example searching on EzLLM documentation
+
+```py
+related_documents = c.search("What is a collection?")
+
+print(related_documents)
+"""
+[
+    Document("a collection is a set of documents with shared method of storage. ..."),
+    ...
+]
+"""
+```
+[view the full snippet](</usecases/Semantic Search>)
+
+
+It's that simple to add semantic search to your project, no need to manage
+- document parsing
+- embeddings
+- vector databases
+
+## 2. Extraction
+It has never been easier to extract structured data from unstructured input.
+
+The following is an example of using LLM to parse contact information from a PDF
+
+```py
+contacts = doc.scan().run(Extract(model=ContactInformationModel))
+
+print(contacts)
+"""
+[
+    {
+        "name" : "John Smith",
+        "phone" : "111-111-1111",
+        "email" : "john@example.com"
+    },
+    {
+        "name" : "Jane Smith",
+        "phone" : "111-111-1111",
+        "email" : "jane@example.com"
+    },
+    ...
+]
+"""
+```
+[view the full snippet](</usecases/Extraction>)
+
+## 3. Q&A With Documents
+This is an example of Question and Answering w/ Semantic Search.
+
+We first search for similar documents, based off of a user query - "What is a collection?" and then we provide the relevant documents to the LLM to produce a concise answer.
+
+```py
+# QA Semantically Similar Context of an Individual Document
+response = doc.search("What is a collection?").run(QA([
+    "What is a collection?",
+    "How do you instantiate a collection?"
+]))
+
+print(response)
+"""
+{
+    "docs" : [
+        Document("a collection is a set of documents with shared method of storage. ..."),
+    ],
+    "output" : [
+        {
+            "question" : "What is a collection?",
+            "output" : "a collection is a set of documents",
+        },
+        {
+            "question" : "How do you instantiate a collection?",
+            "output" : "There are multiple ways to instantiate a collection\n col = Collection()",
+        },
+    ]
+}
+"""
+```
+[view the full snippet](</usecases/QA>)
+
+
+## 4. Web Scrape
+the following is an example of a webscraper that extracts all the items being sold on an ecommerce page, the descriptions and the prices
+
+```py
+import ezllm
+from ezllm.methods import Extract
+from pydantic import BaseModel, Field
+
+# 1. define the structure of the data you want to extract
+class ItemModel(BaseModel):
+    """extract the fields for each item"""
+    item: str = Field(
+        ...,
+        description="name of the item"
+    )
+    description: str = Field(
+        ...,
+        description="description of the item"
+    )
+    price: float = Field(
+        ...,
+        description="price of the item"
+    )
+
+
+class ExtractModel(BaseModel):
+    """extract data from item"""
+    items: List[ItemModel] = Field(
+        ...,
+        description="list of items extracted from provided text"
+    )
+
+# 2. Create the web document
+doc = WebDocument("https://example.com")
+
+# 3. run the extract method
+doc.scan().run(Extract(model=ExtractModel))
+```
+[view the full snippet](</usecases/Webscrape>)

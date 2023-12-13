@@ -1,0 +1,14 @@
+---
+title: Semantic Search
+description: EzLLM Semantic Search
+---
+
+
+```py
+from ezllm import Collection
+c = Collection("documentation")
+
+await c.upload(files)
+
+related_documents = c.search("User Query")
+```

@@ -1,0 +1,12 @@
+---
+title: Sub Documents
+description: 'EzLLM Sub Documents'
+---
+
+Most documents are parsed into chunks of context that can then be provide to the LLM in a variety of ways.
+
+The size of a sub document is a balancing act between
+1. having a small enough size that semantic search is effective
+2. being large enough to contain useful context
+3. being small enough that you can fit multiple sub documents into a single LLM call
+4. large enough so as to not cut the context apart

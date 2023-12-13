@@ -1,0 +1,102 @@
+---
+title: Document
+description: 'EzLLM Document'
+---
+
+a Document represents a single file uploaded to EzLLM
+
+
+## Document Parsing
+depending on the selected parser, documents are typically parsed into markdown. There's a few good reasons for translating a document to markdown
+
+1. Preserves Essential Formatting: Converting documents to Markdown retains crucial formatting, such as tables, headers, and other layout elements, which are key to maintaining the document's original presentation and readability.
+
+2. Efficiency in Token Usage: Markdown uses fewer tokens to represent document formatting. Reducing the number of tokens increases speed, available context and reduces cost.
+
+3. Ubiquity: Markdown is very common and as such LLMs are able to understand the content easily
+
+
+
+# TODO
+- subdocs
+- fundamental
+
+## Parser types
+### PDF
+Converts a PDF to markdown, attempting to break pieces of context by headers, distance or when the context block hits the max `n_tokens` per context block.
+
+It also attempts to preserve tables without splitting them.
+
+### HTML
+Converts HTML to markdown.
+
+### TXT
+simply saves the text into context blocks with `n_tokens`.
+
+### OCR
+Converts an image with text or a PDF with images to markdown.
+
+### VTT
+Creates chunks of context every `n_seconds`
+
+// TODO : overlap
+
+
+# Code Snippets
+
+## Creating a Document
+```py
+# doc = Document.create(name="Name Of Collection", type="embedded", ttl=24)
+
+# the simplest way
+doc = await col.upload(file)
+
+# but you can also provide params
+doc = await col.upload(file, name="My Document", type="pdf", ttl=1)
+
+```
+
+## Retrieving a Document
+```py
+doc = Collection("document id")
+```
+
+## Updating a Collection
+```py
+doc.update(name="New Name")
+```
+
+## Deleteing a Collection
+```py
+doc.delete()
+```
+
+## Searching a Document
+```py
+await doc.search("SEC Filings Mentioning Climate Change")
+```
+
+## Filtering a Document
+```py
+# returns all context from page 1
+await doc.filter(page=1)
+```
+
+
+## Props
+<ParamField path="name" type="string" required>
+    the name of the document
+</ParamField>
+
+<ParamField path="type" type="enum">
+    the type of parser used, default is inferred from the file metadata / extension
+
+    Valid types:
+    - pdf
+    - txt
+    - html
+</ParamField>
+
+<ParamField query="ttl" type="enum" default="24">
+    Number of hours for the document to live before it is deleted
+</ParamField>

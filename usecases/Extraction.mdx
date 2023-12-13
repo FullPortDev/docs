@@ -1,0 +1,40 @@
+---
+title: Extraction
+description: EzLLM Extract structured data from unstructured input 
+---
+```py
+import ezllm
+from ezllm.methods import Extract
+from pydantic import BaseModel, Field
+
+# 1. define the structure of the data you want to extract
+class PersonModel(BaseModel):
+    """extract the fields for each person"""
+    name: str = Field(
+        ...,
+        description="name of the person"
+    )
+    phone: str = Field(
+        ...,
+        description="phone number of the person"
+    )
+    email: str = Field(
+        ...,
+        description="email of the person"
+    )
+
+
+class ContactInformationModel(BaseModel):
+    """extract data from text"""
+    people: List[PersonModel] = Field(
+        ...,
+        description="list of people extracted from provided text"
+    )
+
+# 2. upload your file, wait for it to be parsed
+f = open('./file.pdf', 'r')
+doc = await ezllm.upload(f)
+
+# 3. run the extract method
+doc.scan().run(Extract(model=ContactInformationModel))
+```

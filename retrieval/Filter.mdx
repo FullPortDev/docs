@@ -1,0 +1,57 @@
+---
+title: Filter
+description: EzLLM Filter Method 
+---
+
+The filter method enables you to filter on, documents, documents metadata, sub documents and collections.
+
+Filter allows you to specify 
+
+# TODO
+- [ ] start / end
+- [ ] first, last, index?
+
+
+
+# Code Snippets
+## Filter Between Metadata Values
+```py
+documents = await doc.filter(page=(1, 5))
+```
+
+### Range
+alternatively if you want to specify inclusive / exclusive constaints you can use
+```py
+from ezllm import Filter
+
+await doc.filter(page=Filter(gt=1, lte=5))
+# can't do this cause in is protected keyword
+# await doc.filter(page=Filter(in=[1, 3, 5]))
+
+
+# or
+
+from ezllm import Range, In
+
+await doc.filter(page=Range(gt=1, lte=5))
+await doc.filter(page=In([1, 3, 5]))
+
+```
+
+## 
+
+## Advanced Filtering Methods
+```py
+table_document = await doc.filter(page=1, type="table").first()
+
+# gets the context previous to the table document
+# as this free text may be useful in deducing information of the table
+docs = [
+  ...doc.subdocs[table_document.index - 3: table_document.index - 1],
+  table_document
+]
+
+ezllm.scan(docs).run(QA(["Who was the invoice for?", "What was the invoices payment terms?"]))
+```
+
+

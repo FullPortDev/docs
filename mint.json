@@ -1,6 +1,5 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "EzLLM",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -22,20 +21,14 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Dev Console",
+    "url": "https://console.ezllm.io"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://docs.ezllm.io"
     },
     {
       "name": "Community",
@@ -51,15 +44,54 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": [
+        "introduction",
+        "quickstart"
+      ]
     },
     {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "group": "Entities",
+      "pages": [
+        {
+          "group": "Documents",
+          "pages": [
+            "entities/documents/Document",
+            "entities/documents/DataDocument",
+            "entities/documents/ImageDocument",
+            "entities/documents/WebDocument"
+          ]
+        },
+        {
+          "group": "Collections",
+          "pages": [
+            "entities/collections/Collection",
+            "entities/collections/Embedded"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Retrieval",
+      "pages": [
+        "retrieval/Methods",
+        "retrieval/Filter",
+        "retrieval/Scan",
+        "retrieval/Search"
+      ]
+    },
+    {
+      "group": "Use Cases",
+      "pages": [
+        "usecases/UML",
+        "usecases/Extraction",
+        "usecases/Semantic Search"
+      ]
     },
     {
       "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
+      "pages": [
+        "api-reference/introduction"
+      ]
     },
     {
       "group": "Endpoint Examples",
