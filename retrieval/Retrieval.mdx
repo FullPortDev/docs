@@ -1,13 +1,16 @@
 ---
-title: Document Retrieval Methods
+title: About Retrieval
 description: Methods of document retrieval within EzLLM
 ---
+
+Retrieval is the step where context is selected. A retrieval will return groupings of context that LLM methods can be run against. In most cases, a retrieval will return an array of sub-documents.
 
 there are two methods of document retrieval within EzLLM
 
 ## 1. Search
 the search method uses embeddings & vector databases to pull semantically relevant context.
 
+Search can only be performed on [SearchCollections](</entities/collections/Search>)
 
 ### When is Search Useful?
 1. reducing costs
@@ -19,14 +22,15 @@ the search method uses embeddings & vector databases to pull semantically releva
 - a Question and Answer bot based off of your documentation
 
 ## 2. Scan
-The scan method filters and iterates through all context documents.
+The scan method iterates through all context documents.
 
-This is useful for things like summarization, structured data extraction
+This is useful for things like summarization, structured data extraction or any LLM method that requires a contiguous chunk of context.
 
 
 ### When is Scan Useful?
 1. thoroughness, it leverages all filtered context in the LLM
 2. when there's no clear distinction between what is relevant and what isn't
+3. when you know the exact piece of context you need
 
 ### Example Use Cases
 - extract structured data

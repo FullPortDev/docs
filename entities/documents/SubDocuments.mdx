@@ -10,3 +10,45 @@ The size of a sub document is a balancing act between
 2. being large enough to contain useful context
 3. being small enough that you can fit multiple sub documents into a single LLM call
 4. large enough so as to not cut the context apart
+
+# Fundamental Concepts
+## Metadata
+Sub documents also have metadata attached to them which differs depending on the file type. For example a PDF file will have metadata on which `page` a piece of context is from and a transcript will have information on when the `start_time` and `end_time` of the piece of context.
+
+
+# Code Snippets
+
+## Retrieving a Sub Document Directly
+```py
+subdoc = SubDocument("id")
+```
+
+## Iterating Subdocs
+```py
+for subdoc in doc.subdocs:
+    print(subdoc)
+```
+
+
+## Props
+
+<ParamField path="id" type="string" required>
+    and auto generated id assigned to the subdoc
+</ParamField>
+
+<ParamField path="metadata" type="dict">
+    a dictionary of the metadata fields from the document
+</ParamField>
+
+## Sub Doc Metadata
+this is the default subdoc metadata across all Sub Document types
+
+<ParamField path="cid" type="string" required>
+    The collection id it belongs to
+</ParamField>
+<ParamField path="did" type="string" required>
+    The document id it belongs to
+</ParamField>
+<ParamField path="wid" type="string" required>
+    the workspace id it belongs to
+</ParamField>

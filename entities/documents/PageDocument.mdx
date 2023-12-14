@@ -1,0 +1,37 @@
+---
+title: Page Document
+description: EzLLM Page Document (PDFs, Docx)
+---
+
+the Page Document extends off of the Document class providing a few additional class members
+
+## Class Members
+<ParamField path="pages" type="number" required>
+    duration of the transcript in milliseconds
+</ParamField>
+
+## Sub Doc Metadata
+<ParamField path="page" type="number" required>
+    start_time of the sub doc
+</ParamField>
+<ParamField path="endPage" type="number" required>
+    the page that the context block ends on
+</ParamField>
+<ParamField path="page" type="number" required>
+    start_time of the sub doc
+</ParamField>
+<ParamField path="endPage" type="number" required>
+    the page that the context block ends on
+</ParamField>
+<ParamField path="x1" type="number" required>
+    left most point of the context block
+</ParamField>
+<ParamField path="y1" type="number" required>
+    top most point of the context block
+</ParamField>
+<ParamField path="x2" type="number" required>
+    right most point of the context block
+</ParamField>
+<ParamField path="y2" type="number" required>
+    bottom most point of the context block
+</ParamField>

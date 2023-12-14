@@ -1,0 +1,39 @@
+# Code Snippets
+```py
+doc.scan().run(QA(["Who is the author?", "What is the name of the book?"]))
+
+
+
+```
+
+
+# Output
+1. as a dict
+```
+{
+    "Who is the author?" : "The author is ...",
+}
+```
+
+2. index the question is in
+```
+[
+    {
+        "question" : "Who is the author?.",
+        "answer" : "JK Rowling"
+    },
+    {
+        "question" : "What is the name of the book?",
+        "answer" : "Harry Potter"
+    }
+]
+```
+
+3. provide a key
+```
+doc.scan().run(QA(
+    Question("123", "Who is the author?"),
+    Question("xyz","What is the name of the book?")
+))
+
+```

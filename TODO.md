@@ -4,7 +4,13 @@
 - [ ] Batch Operations
 - [ ] explain pydantic extraction better
 - [ ] get doc content
-- [ ] 
+- [ ] sub-doc, subdocument, sub document ... 
+- [ ] specify which LLM model to run with
+- [ ] pulling historical runs data
+
+### How do images / Image Collections work?
+- should they work identically?
+  - may screw up searching
 
 # Documentation TODO Nov 28th 2023
 - [ ] authentication

@@ -17,7 +17,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:info@fullport.dev"
     }
   ],
   "topbarCtaButton": {
@@ -38,7 +38,7 @@
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://ezllm.com/blog"
     }
   ],
   "navigation": [
@@ -56,16 +56,21 @@
           "group": "Documents",
           "pages": [
             "entities/documents/Document",
-            "entities/documents/DataDocument",
             "entities/documents/ImageDocument",
-            "entities/documents/WebDocument"
+            "entities/documents/DataDocument"
           ]
         },
         {
           "group": "Collections",
           "pages": [
             "entities/collections/Collection",
-            "entities/collections/Embedded"
+            "entities/collections/SearchCollection"
+          ]
+        },
+        {
+          "group": "Response",
+          "pages": [
+            "entities/response/Response"
           ]
         }
       ]
@@ -73,10 +78,20 @@
     {
       "group": "Retrieval",
       "pages": [
-        "retrieval/Methods",
+        "retrieval/Retrieval",
         "retrieval/Filter",
         "retrieval/Scan",
         "retrieval/Search"
+      ]
+    },
+    {
+      "group": "Methods",
+      "pages": [
+        "methods/Methods",
+        "methods/Extract",
+        "methods/QA",
+        "methods/Summarization",
+        "methods/Classification"
       ]
     },
     {
@@ -86,21 +101,8 @@
         "usecases/Extraction",
         "usecases/Semantic Search"
       ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
     }
+
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/mintlify",

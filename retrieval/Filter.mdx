@@ -55,3 +55,44 @@ ezllm.scan(docs).run(QA(["Who was the invoice for?", "What was the invoices paym
 ```
 
 
+### Props
+<ParamField path="documents" type="string[]">
+    List of document ids to include in filter
+</ParamField>
+
+<ParamField path="sub_documents" type="string[]">
+    List of sub document ids to include in filter
+</ParamField>
+
+<ParamField path="metadata" type="filter_i">
+    array of filters to be applied to the subdocument metadata
+    ```ts
+    interface filter_i {
+        [metadata_key: string]: {
+            eq?: (number|string)
+            gte?: number
+            lte?: number
+            gt?: number
+            lt?: number
+            in: (number|string)[]
+        }
+    }
+
+    // example
+    {
+        "page" : {
+            "eq" : 1
+        }
+        // or
+        "page" : {
+            "gte" : 1,
+            "lte" : 5,
+        }
+        // or
+        "page" : {
+            "in" : [1,2,3]
+        }
+    }
+    ```
+</ParamField>
+
