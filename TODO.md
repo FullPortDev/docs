@@ -7,6 +7,10 @@
 - [ ] sub-doc, subdocument, sub document ... 
 - [ ] specify which LLM model to run with
 - [ ] pulling historical runs data
+- [ ] ocr
+- [ ] language settings
+- [ ] filter by doc metadata, not just subdoc metadata
+
 
 ### How do images / Image Collections work?
 - should they work identically?
@@ -78,6 +82,7 @@ ezllm.scan(docs).run(QA(["Who was the invoice for?", "What was the invoices paym
 
 - brail code translator for brail keyboards
   - perhaps even use it to parse relevant information from a website and be able to display it to the user
+- receipt parser
 
 # Use Cases
 - [ ] frame by frame comparison

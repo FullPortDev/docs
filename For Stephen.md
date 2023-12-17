@@ -73,9 +73,9 @@ type output = subdoc[]
 
 ```ts
 interface Filter {
+    collections: string[] // array of collection ids
     documents: string[] // array of document ids
     subdocs: string[] // array of subdoc ids
-    collections: string[] // array of collection ids
     metadata: {
         [metadata_key: string]: {
             eq?: (number|string)
@@ -98,6 +98,10 @@ interface output {
 
 ```py
 ezllm.filter(documents=["did"], page=1)
+
+[
+    Document("did") # subdocs would only be from page 1
+]
 
 # these two things are identical
 doc = Document("did")
@@ -132,11 +136,6 @@ class Scan(Action):
 
         requests.post('/scan', body=body)
 
-class Filter(Action):
-    def scan(self):
-        return Scan(filter=self)
-
-
 class ResponseDocument(Document):
     pass
 
@@ -148,6 +147,73 @@ class Response:
 
 class ExtractionResponse(Response[ExtractionBody]):
     pass
+
+class Filter(Action):
+    def __init__(self, documents: List[Document], collections: List[Collection], ...):
+        self.documents = documents
+        self.collections = collections
+    
+    def get(self):
+        requests.post(
+            f'{self.client.url}/filter/{self.wid}',
+            headers=self.client.headers,
+            body=json.dumps(self.json())
+        )
+
+    def json(self):
+        return {
+            "collections" : [x.id for x in self.collections],
+            "documents" : [x.id for x in self.documents],
+            ...
+        }
+
+    def scan(self):
+        return Scan(filter=self)
+    
+    def search(self):
+        return Search(filter=self)
+
+
+class Document:
+    def filter(self, *args, **kwargs):
+        return Filter(documents=[self], *args, **kwargs)
+
+    def scan(self, *args, **kwargs):
+        return self.filter().scan(*args, **kwargs)
+
+    def search(self, *args, **kwargs):
+        return self.filter().search(*args, **kwargs)
+
+class Collection:
+    def filter(self, *args, **kwargs):
+        return Filter(collections=[self], *args, **kwargs)
+
+    def scan(self, *args, **kwargs):
+        return self.filter().scan(*args, **kwargs)
+
+    def search(self, *args, **kwargs):
+        return self.filter().search(*args, **kwargs)
+
+
+# __init__.py
+def filter(*args, **kwargs):
+    return Filter(*args, **kwargs)
+
+# SDK user
+
+import ezllm
+
+ezllm.filter(
+    documents=[Document("did")]
+)
+
+from ezllm import Filter
+
+f = Filter(
+    documents=[Document("did")]
+)
+
+
 ```
 
 ## Search
@@ -222,3 +288,111 @@ ezllm.scan
 Filter(documents=["did"])
 
 ```
+
+
+# uploading
+```py
+ezllm.upload(file)
+
+col.upload(file)
+```
+
+
+# Response
+- be able to get the output of previous responses
+
+
+
+
+# Calls
+
+## 1. GET /filter 
+- return the filtered documents 
+```ts
+interface input{
+    filter: Filter
+}
+```
+
+```py
+class Filter:
+    def search(self):
+        return Search()
+```
+
+## 2. GET /search or GET /scan
+- return the documents and relevant subdocuments from the search
+
+```ts
+interface SearchMetadata {
+    query: string
+    n: number
+}
+interface ScanMetadata {
+    // TODO
+}
+
+interface input{
+    filter: Filter
+    retrieval: {
+        type: 'search'|'scan',
+        metadata: SearchMetadata|ScanMetadata
+    }
+}
+```
+
+```py
+class Search:
+    def run(self, method):
+        output = method.run()
+        return output
+```
+
+## 3. GET /run
+```ts
+interface input{
+    filter: Filter
+    retrieval: {
+        type: 'search'|'scan',
+        metadata: SearchMetadata|ScanMetadata
+
+    },
+    method: {
+        type: 'extraction',
+        metadata: {
+            schema: JSON,
+        }
+    }
+}
+```
+
+```py
+class Method:
+    pass
+
+class ExtractionMethod:
+    def run(self):
+        # makes a call to the api with the above interface
+
+
+
+
+class Action:
+    # can't do this because it isn't strict enough on what methods can be run and when
+    def __init__(self, filter, retrieval, method):
+        pass
+
+    def get(self):
+        # makes the call to get the data based off of the filter / retrieval / method provided
+
+    def search(self):
+        pass
+
+    def scan(self):
+        pass
+
+    def run(self):
+        pass
+```
+
+
