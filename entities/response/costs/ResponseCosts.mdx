@@ -1,0 +1,33 @@
+---
+title: Response Costs
+description: EzLLM Response Costs
+---
+
+The ResponseCosts have a total_cost and an itemized list of costs for that run
+
+```
+ResponseCosts(
+    total_cost=0.08994,
+    costs=[
+        ResponseCost(cost=0.01061, date='2023-12-27T18:11:18.722257', step='method', usage=835, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+        ResponseCost(cost=0.01677, date='2023-12-27T18:11:33.154518', step='method', usage=1387, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+        ResponseCost(cost=0.01446, date='2023-12-27T18:11:42.677551', step='method', usage=1264, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+        ResponseCost(cost=0.01874, date='2023-12-27T18:11:51.773802', step='method', usage=1632, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+        ResponseCost(cost=0.00921, date='2023-12-27T18:11:55.009121', step='method', usage=833, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+        ResponseCost(cost=0.02015, date='2023-12-27T18:12:04.453414', step='method', usage=1691, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+    ]
+)
+```
+
+### Read More About [Response Cost](<./ResponseCost>)
+
+
+# Properties
+<ParamField path="costs" type="ResponseCost[]">
+    itemized list of costs
+</ParamField>
+
+<ParamField path="total_cost" type="float">
+    total cost of the operation
+</ParamField>
+

@@ -1,0 +1,36 @@
+---
+title: Doc Groups
+description: EzLLM Doc Groups
+---
+
+documents grouped based off of the group value passed to a retriever.
+
+You can group by all, collection, document and soon by metadata.
+
+For more information on grouping read [Retrieval Grouping](</retrieval/Retrieval#grouping>)
+
+
+
+
+
+### Examples
+- group every 2 pages in a pdf
+- group every 300 seconds in a transcript
+
+
+# Properties
+<ParamField path="docs" type="ResponseDocs">
+    [ResponseDocs](<./ResponseDocs>) object
+</ParamField>
+
+# Methods
+<ParamField path="by_id(id: str)" type="OutputGroup">
+    get a grouping by id of the grouping
+</ParamField>
+
+
+{/* <ParamField path="data" type="ResponseDoc[]">
+    a list of ResponseDoc
+    [ResponseDocs](<./ResponseDoc>) object
+</ParamField> */}
+

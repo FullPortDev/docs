@@ -1,0 +1,60 @@
+---
+title: Client
+description: 'EzLLM Client'
+---
+
+The EzLLM Client automatically instantiates and authenticates itself using the `.env` file.
+
+
+# Env File
+```sh
+EZLLM_ACCESS_KEY = YOUR_API_HERE
+EZLLM_SECRET = YOUR_SECRET_HERE
+EZLLM_API_URL = https://api.ezllm.io # optional
+EZLLM_RUN_URL = https://run.ezllm.io # optional
+```
+
+# Credentials
+The `EZLLM_ACCESS_KEY` and `EZLLM_SECRET` can be found in the API Users section when creating a user.
+
+
+# Manual Instantiatiation
+However you may want to authenticate the SDK in a different way, in which case you have a few options
+
+## Instantiate the Default Client
+The manual client instantiation needs to be the first EzLLM call. If any other entity is called before you instantiate the Client yourself, then the entity will create its own default Client.
+
+```py
+Client(
+    key='EZLLM_ACCESS_KEY',
+    secret='EZLLM_SECRET',
+    api_url='https://api.ezllm.io', # optional
+    run_url='https://run.ezllm.io', # optional
+)
+
+
+# and then any further rqeuests will leverage that client (as long as it's the first instantiation of the client)
+doc = Document("DOC_ID")
+```
+
+
+## Pass a Specific Client to Specific Resources
+```py
+c1 = Client(
+    key='EZLLM_ACCESS_KEY',
+    secret='EZLLM_SECRET',
+    api_url='https://api.ezllm.io', # optional
+    run_url='https://run.ezllm.io', # optional
+)
+
+c2 = Client(
+    key='EZLLM_ACCESS_KEY',
+    secret='EZLLM_SECRET',
+    api_url='https://api.ezllm.io', # optional
+    run_url='https://run.ezllm.io', # optional
+)
+
+doc = Document("DOC_ID") # will automatically use c1, as it was the first to instantiate
+doc1 = c1.Document('DOC_ID')
+doc2 = Document('DOC_ID', client=c2)
+```

@@ -3,13 +3,18 @@ title: UML Diagram Evaluation
 description: 'Use case for evaluating a UML diagram, leveraging gpt4-vision'
 ---
 
+<Card title="BETA" icon="code" iconType="duotone" color="#FF7272">
+    This feature is in a closed beta
+
+    [click here to join](<https://forms.gle/km98JPdAfBNZucoE6>)
+</Card>
 
 ![image](</images/usecases/uml.png>)
 
 # Imports
 ```py
 import ezllm
-from ezllm.methods import Extract
+from ezllm.methods import ExtractionMethod
 from pydantic import BaseModel, Field
 ```
 
@@ -47,61 +52,86 @@ class ExtractModel(BaseModel):
 ```py
 f = open('uml.png', 'r').read()
 doc = await ezllm.upload(f)
-output = await doc.scan().run(Extract(model=ExtractModel))
+output = await doc.run(ExtractionMethod(schema=ExtractModel))
 ```
 
 # Output
-```json
-{
-    "errors": [
-        {
-            "modelName": "Account",
-            "text": "Duplicate attribute 'CustomerId:int'. The CustomerId attribute is repeated in Checking and Savings, which could indicate an error if they are meant to inherit this attribute from Account."
-        },
-        {
-            "modelName": "Account",
-            "text": "Missing operations. The operations for managing an Account such as deposit, withdraw etc. are associated with Customer instead of Account."
-        },
-        {
-            "modelName": "Loan",
-            "text": "Attribute redundancy: 'CustomerId: int' is not necessary if Loans are always related to an Account which is linked to a Customer."
-        },
-        {
-            "modelName": "General",
-            "text": "Inconsistent multiplicity notation: for some associations, the multiplicity is indicated at the end of the line without an arrow, but the association between Savings and Account uses an arrow."
-        }
-    ],
-    "warnings": [
-        {
-            "modelName": "Bank",
-            "text": "No operations defined. Typically, one would expect to see operations related to managing a bank or its branches."
-        },
-        {
-            "modelName": "Teller",
-            "text": "Possible role confusion: A Teller has functions like loan requests that may be typically handled by a loan officer or manager."
-        },
-        {
-            "modelName": "Loan",
-            "text": "No attributes to track the loan status, amount, interest rate, terms, or repayment schedule."
-        }
-    ],
-    "suggestions": [
-        {
-            "modelName": "Checking and Savings",
-            "text": "These could be subclasses of Account if they don't add new attributes or operations."
-        },
-        {
-            "modelName": "Loan",
-            "text": "Consider adding more properties to Loan to properly capture all relevant loan data."
-        },
-        {
-            "modelName": "Customer",
-            "text": "Consider moving account management operations to the Account class or create a separate class that handles account transactions."
-        }
-    ]
-}
+```py
+ExtractionMethodResponse(
+    costs=ResponseCosts(
+        total_cost=4.0,
+        costs=[
+            ResponseCost(cost=2, date='2024-01-10T07:39:46.393895', step='method', usage=1196, limitType='llm', limitId='gpt-3.5', desc=None, reportedCost=0.003084)
+            ...
+        ]
+    )
+    # add the include_docs=True argument to return docs
+    doc_groups=DocOutputGroups(
+        groups=[
+
+        ]
+    )
+    output_groups=ExtractionOutputGroups(
+        groups=[
+            ExtractionOutputGroup(
+                type="all"
+                id="test_id"
+                output=ExtractionOutputData(
+                    data={
+                        "errors": [
+                            {
+                                "modelName": "Account",
+                                "text": "Duplicate attribute 'CustomerId:int'. The CustomerId attribute is repeated in Checking and Savings, which could indicate an error if they are meant to inherit this attribute from Account."
+                            },
+                            {
+                                "modelName": "Account",
+                                "text": "Missing operations. The operations for managing an Account such as deposit, withdraw etc. are associated with Customer instead of Account."
+                            },
+                            {
+                                "modelName": "Loan",
+                                "text": "Attribute redundancy: 'CustomerId: int' is not necessary if Loans are always related to an Account which is linked to a Customer."
+                            },
+                            {
+                                "modelName": "General",
+                                "text": "Inconsistent multiplicity notation: for some associations, the multiplicity is indicated at the end of the line without an arrow, but the association between Savings and Account uses an arrow."
+                            }
+                        ],
+                        "warnings": [
+                            {
+                                "modelName": "Bank",
+                                "text": "No operations defined. Typically, one would expect to see operations related to managing a bank or its branches."
+                            },
+                            {
+                                "modelName": "Teller",
+                                "text": "Possible role confusion: A Teller has functions like loan requests that may be typically handled by a loan officer or manager."
+                            },
+                            {
+                                "modelName": "Loan",
+                                "text": "No attributes to track the loan status, amount, interest rate, terms, or repayment schedule."
+                            }
+                        ],
+                        "suggestions": [
+                            {
+                                "modelName": "Checking and Savings",
+                                "text": "These could be subclasses of Account if they don't add new attributes or operations."
+                            },
+                            {
+                                "modelName": "Loan",
+                                "text": "Consider adding more properties to Loan to properly capture all relevant loan data."
+                            },
+                            {
+                                "modelName": "Customer",
+                                "text": "Consider moving account management operations to the Account class or create a separate class that handles account transactions."
+                            }
+                        ]
+                    }
+                )
+            )
+        ]
+    )
+)
 ```
 
 
-# Technologies
-- GPT-4-vision
+{/* # Technologies
+- GPT-4-vision */}

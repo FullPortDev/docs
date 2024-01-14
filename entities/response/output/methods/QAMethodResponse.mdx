@@ -1,22 +1,10 @@
 ---
-title: Q & A method
-description: EzLLM Question and Answer Method
+title: QA Method Response
+description: EzLLM QA Method Response
 ---
 
-The question and answer method enables you to ask one or many questions against your documents.
 
-Questions like
-- Is this relevant to my research in XYZ?
-- Who are the authors?
-- What organizations are mentioned?
-
-This is an incredible tool for research
-
-# Code Snippets
 ```py
-doc.run(QA(["Who is the author?", "What organizations is this document from?"]))
-
-# Output
 QAMethodResponse(
     costs=ResponseCosts(
         total_cost=0.08994,
@@ -57,11 +45,37 @@ QAMethodResponse(
 )
 ```
 
-## Output
-[Read more about the QAMethod output](</entities/response/output/methods/QAMethodResponse>)
+
+# Code Snippets
+
+## Iterating Through Questions & Answers
+```py
+for question in response.data:
+    print(question.question, question.answer, question.relevant)
+
+    # Output
+    """
+    Who are the authors? Sylvain Burns, Joseph Brehaut, Jamie Britton 100
+    What organizations is this document from? Journal of Professional Engineering, University of Ottawa 100
+    """
 
 
-# Props
-<ParamField path="questions" type="string[]" required>
-    list of string questions
-</ParamField>
+
+for group in response.output:
+    d = group.data
+    print(group.id, group.type)
+    
+    # Output
+    """
+    document 658b4e441f41ead7592562de
+    """
+    
+    for question in group.questions:
+        print(question.question, question.answer, question.relevant)
+        
+        # Output
+        """
+        Who are the authors? Sylvain Burns, Joseph Brehaut, Jamie Britton 100
+        What organizations is this document from? Journal of Professional Engineering, University of Ottawa 100
+        """
+```

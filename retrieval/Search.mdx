@@ -3,9 +3,44 @@ title: Search
 description: 'EzLLM Search Retrieval'
 ---
 
-
+```py
+SearchRetrieval(
+    output=SearchResponse(
+        costs=ResponseCosts(
+            total_cost=10.0,
+            costs=[
+                    ResponseCost(cost=10, date='2024-01-14T14:46:48.938284', step='retrieve', usage=1, limitType='search', limitId='search', desc=None, reportedCost=None)
+            ]
+        )
+        doc_groups=SearchDocOutputGroups(
+            groups=[
+                SearchDocOutputGroup(
+                    id=None
+                    type='all'
+                    data=SearchResponseDocs(
+                        docs=[
+                            SearchResponseDoc(
+                                name='Test File'
+                                SubDocs=1
+                            )
+                        ]
+                    )
+                )
+            ]
+        )
+    )
+    retrieval={'filter': {'collections': ['659a54a5d9569e7b627dea93'], 'documents': [], 'subdocs': [], 'metadata': {}}, 'retrieval': {'type': 'search', 'accumulate': {'type': 'all'}, 'metadata': {'query': 'Hello World', 'n': 10}}}
+)
+```
 
 ### Props
 <ParamField path="query" type="string" required>
     The query to search semantically similar text with
+</ParamField>
+<ParamField path="group" type="Literal['document' | 'collection' | 'all']">
+    How you want the documents grouped, this is useful for applying methods against a specific grouping of context
+
+    i.e you want to Q&A each document individually so you group by `document` or you want a single answer so you group by `all`
+
+    [Read more about grouping here](</retrieval/Retrieval#grouping>)
 </ParamField>

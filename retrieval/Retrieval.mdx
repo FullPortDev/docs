@@ -10,7 +10,7 @@ there are two methods of document retrieval within EzLLM
 ## 1. Search
 the search method uses embeddings & vector databases to pull semantically relevant context.
 
-Search can only be performed on [SearchCollections](</entities/collections/Search>)
+{/* Search can only be performed on [SearchCollections](</entities/collections/Search>) */}
 
 ### When is Search Useful?
 1. reducing costs
@@ -37,11 +37,32 @@ This is useful for things like summarization, structured data extraction or any 
 - iterate through a transcript asking questions, aggregating by 5 minute intervals
 
 
-## Fundamental Concepts
-### Filter
+# Fundamental Concepts
+## Filter
 The ability to filter on collections, documents, documents metadata and sub documents
 
 This enables you to draw the exact piece of context that you want.
 
+Search and Scan can be chained and applied to a filter
 
-# Code Snippets
+## Grouping
+### Group Types
+The group type has big impact in how methods are run against a retrieval.
+
+How documents are grouped is how context is passed to the LLM.
+
+So if you want a single output that uses the context of all documents in a filter, then group by `all`
+
+If you want a distinct output per document isolated from the context of other documents / collections then group by `document` or `collection`
+
+#### Group Type - All
+groups all filtered documents into a single group. Supplies the context of all the documents to the LLM calls
+
+#### Group Type - Collection
+groups all filtered documents into the collection they are from. Supplies the context of each collection individually to an LLM
+
+#### Group Type - Document
+groups all filtered documents by document. Supplies the context of each document individually to an LLM.
+
+#### Group Type - Metadata [BETA]
+groups subdocs based off of there metadata. Supplies the context grouped by metadata ranges or values individually to an LLM.

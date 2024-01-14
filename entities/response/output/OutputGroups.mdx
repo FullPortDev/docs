@@ -1,0 +1,27 @@
+---
+title: Output Groups
+description: EzLLM Output Data
+---
+
+output data grouped based off of the group value passed to a retriever.
+
+for more information on grouping read [Doc Output Groups](</entities/response/docs/DocOutputGroups>) as they are functionally equivelant.
+
+
+
+# Properties
+<ParamField path="data" type="OutputData[]">
+    list of [OutputData](<./OutputData>) object
+</ParamField>
+
+# Methods
+<ParamField path="by_id(id: str)" type="OutputGroup">
+    get a grouping by id of the grouping
+</ParamField>
+
+
+{/* <ParamField path="data" type="ResponseDoc[]">
+    a list of ResponseDoc
+    [ResponseDocs](<./ResponseDoc>) object
+</ParamField> */}
+

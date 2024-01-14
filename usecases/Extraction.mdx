@@ -4,7 +4,7 @@ description: EzLLM Extract structured data from unstructured input
 ---
 ```py
 import ezllm
-from ezllm.methods import Extract
+from ezllm.methods import ExtractionMethod
 from pydantic import BaseModel, Field
 
 # 1. define the structure of the data you want to extract
@@ -36,5 +36,5 @@ f = open('./file.pdf', 'r')
 doc = await ezllm.upload(f)
 
 # 3. run the extract method
-doc.scan().run(Extract(model=ContactInformationModel))
+doc.scan().run(ExtractionMethod(schema=ContactInformationModel))
 ```

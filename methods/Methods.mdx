@@ -3,18 +3,28 @@ title: LLM Methods
 description: 'EzLLM Methods'
 ---
 
-# TODO
-- include / don't include docs output
-
 EzLLM provides methods for interacting with your documents and LLMs
 
 
-## List of Methods
-
-### QA
+## [QA Method](<./QA>)
 Question and answer allows you to define one or many questions to be run against the context.
 
-### Summarize
+
+## [Extraction](<./Extract>)
+Extraction allows you to define a structured output, with descriptions and questions for the LLM to run.
+
+EzLLM simplifies the process of defining the structure, parsing and validating the output.
+
+This revolutionizes a once fickle process of data science, parsing inconsistent files and templates, web scrapers breaking with changes to the website or inconsistent templating - now you simply define the output you want and regardless of formatting EzLLM will parse the data.
+
+
+## Classification [BETA]
+A wrapper around the Extraction to make classification of a body of text or image easier.
+
+Simply define an array of strings and EzLLM will classify a document or an image to one, or many of them
+
+
+## Summarize [BETA]
 Summarization is quite a difficult thing to do with an LLM as it is very easy to run up against the maximum number of tokens, causing failures, inconsistency and massive costs.
 
 EzLLM provides the Summarize Method as an efficient implementation for summarizing large bodies of text.
@@ -22,13 +32,3 @@ EzLLM provides the Summarize Method as an efficient implementation for summarizi
 It uses KNN to cluster every piece of context into `n` groups, taking `n_samples` from each group.
 
 It then uses the samples of context to recursively summarize and join responses together.
-
-### Extraction
-extraction allows you to define a structured output, with descriptions and questions for the LLM to run.
-
-EzLLM simplifies the process of defining the structure, parsing and validating the output.
-
-### Classification
-A wrapper around the Extraction to make classification of a body of text or image easier.
-
-Simply define an array of strings and EzLLM will classify a document or an image to one, or many of them

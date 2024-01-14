@@ -1,36 +1,5 @@
 ---
+title: Extraction
+description: EzLLM Question and Answer for Research
 ---
 
-```py
-from ezllm import Document, Collection
-from ezllm.methods import QA
-
-# QA The Entirety of an Individual Document
-doc = Document("doc_id")
-doc.scan().run(QA("User Query"))
-
-
-# QA Semantically Similar Context of an Individual Document
-doc.search("User Query").run(QA())
-
-
-# Collection of Documents
-col = Collection("Collection Name")
-collection.search("User Question").run(QA())
-
-
-# A List Of Documents
-doc1 = Document("doc1")
-doc2 = Document("doc2")
-ezllm.search([doc1, doc2], "User Query").run(QA())
-
-
-# Specific Sub Document
-table_sub_doc = doc.subdocs.filter(page=1, type='table')
-ezllm.scan(table_sub_doc).run(QA("User Query"))
-
-
-# A Slice of Sub Documents
-subdocs = doc.subdocs[0:10]
-ezllm.scan(subdocs).run(QA("User Query"))
-```

@@ -1,0 +1,68 @@
+---
+title: Extraction Method
+description: EzLLM Extraction Method
+---
+
+## Single Output
+if you only want a single output then you can pass 
+```py
+doc.run(ExtractionMethod(schema=ExtractModel))
+```
+
+### Model Example
+```py
+from enum import Enum
+class Classifications(Enum):
+    forum='forum'
+    social_media='social_media'
+
+class ExtractModel(BaseModel):
+    """extract data from text""" # these descriptions are necessary
+    webpage_classification: Classifications
+    n_users: int = Field(
+        description="number of users on this page"
+    )
+```
+
+
+## Tabular Output
+To extract arbitrarily many structured outputs of a given format you should provide a pydantic model with one or many lists of objects as seen below
+
+Tabular data then has convenient `output.df` functions to format as a dataframe
+
+### Model Example
+```py
+class PostModel(BaseModel):
+    """extract the fields for each post"""
+    post_title: str = Field(
+        ...,
+        description="name of the post"
+    )
+    upvotes: int = Field(
+        ...,
+        description="number of upvotes"
+    )
+    subreddit: str = Field(
+        ...,
+        description="Subreddit the post was from"
+    )
+    user: str = Field(
+        ...,
+        description="user who posted it"
+    )
+
+class ExtractModel(BaseModel):
+    """extract data from text"""
+    posts: List[PostModel] = Field(
+        ...,
+        description="list of posts extracted from provided text"
+    )
+```
+
+## Output
+[Read more about the ExtractionMethod output](</entities/response/output/methods/ExtractionMethodResponse>)
+
+# Props
+<ParamField path="schema" type="PydanticBaseModel" required>
+    
+</ParamField>

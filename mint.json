@@ -6,12 +6,12 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#18558C",
+    "light": "#18558C",
+    "dark": "#18558C",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#237dcd",
+      "to": "#18558C"
     }
   },
   "topbarLinks": [
@@ -26,19 +26,14 @@
   },
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://docs.ezllm.io"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Home Page",
+      "icon": "house",
+      "url": "https://ezllm.io"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://ezllm.com/blog"
+      "url": "https://ezllm.io/blog"
     }
   ],
   "navigation": [
@@ -63,14 +58,41 @@
         {
           "group": "Collections",
           "pages": [
-            "entities/collections/Collection",
-            "entities/collections/SearchCollection"
+            "entities/collections/Collection"
           ]
         },
         {
           "group": "Response",
           "pages": [
-            "entities/response/Response"
+            "entities/response/Response",
+            {
+              "group": "Costs",
+              "pages": [
+                "entities/response/costs/ResponseCosts",
+                "entities/response/costs/ResponseCost"
+              ]
+            },
+            {
+              "group": "Docs",
+              "pages": [
+                "entities/response/docs/DocGroups",
+                "entities/response/docs/DocGroup",
+                "entities/response/docs/ResponseDocs",
+                "entities/response/docs/ResponseDoc",
+                "entities/response/docs/retrieval/SearchResponse",
+                "entities/response/docs/retrieval/ScanResponse",
+                "entities/response/docs/retrieval/FilterResponse"
+              ]
+            },            {
+              "group": "Output",
+              "pages": [
+                "entities/response/output/OutputGroups",
+                "entities/response/output/OutputGroup",
+                "entities/response/output/OutputData",
+                "entities/response/output/methods/ExtractionMethodResponse",
+                "entities/response/output/methods/QAMethodResponse"
+              ]
+            }
           ]
         }
       ]
@@ -88,10 +110,8 @@
       "group": "Methods",
       "pages": [
         "methods/Methods",
-        "methods/Extract",
-        "methods/QA",
-        "methods/Summarization",
-        "methods/Classification"
+        "methods/Extraction",
+        "methods/QA"
       ]
     },
     {
@@ -102,11 +122,10 @@
         "usecases/Semantic Search"
       ]
     }
-
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/ezllm",
+    "github": "https://github.com/FullPort-DEV/ezllm-python",
+    "linkedin": "https://www.linkedin.com/company/ezllm"
   }
 }

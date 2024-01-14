@@ -1,3 +1,6 @@
+## TODO 
+
+
 ## TODO SDK DESIGN - December 12th 2023
 - [ ] logging
 - [ ] combining upload and processing
@@ -82,6 +85,8 @@ ezllm.scan(docs).run(QA(["Who was the invoice for?", "What was the invoices paym
 
 - brail code translator for brail keyboards
   - perhaps even use it to parse relevant information from a website and be able to display it to the user
+- advanced message filtering (i.e. twitter filtering) to determine whether a message is worth looking at
+  - for people with large audiences ?
 - receipt parser
 
 # Use Cases

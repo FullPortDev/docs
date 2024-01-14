@@ -1,0 +1,42 @@
+---
+title: Response Costs
+description: EzLLM Response Costs
+---
+
+The ResponseCosts have a total_cost and an itemized list of costs for that run
+
+```py
+ResponseCost(
+    cost=0.01061, 
+    date='2023-12-27T18:11:18.722257',
+    usage=835,
+    step='method', 
+    limitType='llm',
+    limitId='gpt-4-1106-preview',
+    desc=None
+)
+```
+
+
+# Properties
+<ParamField path="cost" type="float">
+    itemized list of costs
+</ParamField>
+<ParamField path="date" type="datetime">
+    
+</ParamField>
+<ParamField path="step" type="str">
+    what step in the process did the cost occur, retrieval, method, embedding ...
+</ParamField>
+<ParamField path="usage" type="int">
+    usage of the resource (i.e. tokens, gbs)
+</ParamField>
+<ParamField path="limitType" type="str">
+    a grouping of limitId, llm
+</ParamField>
+<ParamField path="limitId" type="float">
+    a unique id to a resource, gpt-4-1106-preview, s3_storage ...
+</ParamField>
+<ParamField path="desc" type="str | None">
+    description of the cost
+</ParamField>

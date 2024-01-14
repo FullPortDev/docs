@@ -6,29 +6,30 @@ description: 'EzLLM Collection'
 Collections are groupings of Documents
 
 ## Collection
-The default collection saves the parsed documents as plain text.
+Collections save each sub document in a vector database for semantic search, enabling semantic search on the documents within the collection.
 
 
-## Search Collection
-Search Collections save each sub document in a vector database for semantic search, enabling semantic search on the documents within the collection.
+## Plain Text Collection (BETA)
+Plain Text Collections are a cost saving measure for when semantic search is unecessary
 
-
-## Data Collection (WIP)
-Is used for tabular data. Data Collections provide different methods leveraging the LLM to generate queries on your data.
 
 
 # Code Snippets
 
 ## Creating a Collection
+collection names must be unique
+
 ```py
-col = Collection.create(name="Name Of Collection", ttl=24)
+col = Collection.create(name="Name Of Collection")
 ```
 
 ## Retrieving a Collection
 ```py
-col = Collection("Name of Collection")
+col = Collection(name="Name of Collection")
 
 # or by id
+col = Collection("col_id")
+# or
 col = Collection(id="col_id")
 ```
 
@@ -48,35 +49,89 @@ col.delete()
 doc = await col.upload(file)
 
 # but you can also provide params
-doc = await col.upload(file, name="My Document", type="pdf", ttl=1)
+doc = await col.upload(file, name="My Document", type="pdf")
 ```
 
 ## Filtering a Collection
 returns all context from page 1 for all documents in a collection
 
 ```py
-await col.filter(page=1)
+await col.filter(metadata={"page" : 1})
 ```
 
+# Methods
 
-## Props
-<ParamField path="name" type="string" required>
-    the name of the collection, must be unique to your workspace
+## Filter
+Filters are inclusive, so a Collection.filter will filter
+1. both across the entire collection
+2. and each document you've passed by the documents argument
+
+<ParamField path="documents" type="string | Document[]">
+    documents to include within the filter
 </ParamField>
 
-<ParamField path="type" type="enum" default="storage">
+<ParamField path="metadata" type="MetadataFilter">
+    [BETA] metadata
+</ParamField>
+
+
+## Search
+<ParamField path="query" type="string">
+    Your search query
+</ParamField>
+<ParamField path="group" type="Literal['document' | 'collection' | 'all']">
+    How you want the documents grouped, this is useful for applying methods against a specific grouping of context
+
+    i.e you want to Q&A each document individually so you group by `document` or you want a single answer so you group by `all`
+
+    [Read more about grouping here](</retrieval/Retrieval#grouping>)
+</ParamField>
+<ParamField path="n_docs" type="int">
+    Number of documents to return
+</ParamField>
+
+## Scan
+<ParamField path="id" type="string">
+    the name of the collection, must be unique to your workspace
+</ParamField>
+<ParamField path="group" type="Literal['document' | 'collection' | 'all']">
+    How you want the documents grouped, this is useful for applying methods against a specific grouping of context
+
+    i.e you want to Q&A each document individually so you group by `document` or you want a single answer so you group by `all`
+
+    [Read more about grouping here](</retrieval/Retrieval#grouping>)
+</ParamField>
+
+## Run
+<ParamField path="method" type="Method">
+    [A Method object](</methods/Methods>)
+</ParamField>
+
+
+# Init Arguments
+<ParamField path="id" type="string">
+    the name of the collection, must be unique to your workspace
+</ParamField>
+<ParamField path="name" type="string">
+    the name of the collection, must be unique to your workspace
+</ParamField>
+<ParamField path="client" type="Client">
+    optionally pass a client
+</ParamField>
+
+{/* <ParamField path="type" type="enum" default="storage">
     the collection type
     - storage
     - embedded
     - data
-</ParamField>
+</ParamField> */}
 
-<ParamField query="model" type="enum" default="instruct-xl">
+{/* <ParamField query="model" type="enum" default="instruct-xl">
     the embedding model to use
     - instruct-xl
     - openai-text-embedding-ada-002
-</ParamField>
+</ParamField> */}
 
-<ParamField query="ttl" type="enum" default="None">
+{/* <ParamField query="ttl" type="enum" default="None">
     Number of hours for the collection to live before it is deleted
-</ParamField>
+</ParamField> */}

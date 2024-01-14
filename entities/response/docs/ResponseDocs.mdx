@@ -1,0 +1,51 @@
+---
+title: Response Docs
+description: EzLLM Response Docs
+---
+
+
+Response Docs is a convenient class that enables you to iterate over your documents and get by id
+
+# Code Snippets
+```py
+res = col.search("Query").get()
+print(res.docs)
+
+# Output
+ResponseDocs(
+    docs=[
+        SearchResponseDoc(
+            name=Reddit Test File
+            SubDocs=1
+        )
+    ]
+)
+
+for doc in res.docs:
+    print(doc)
+
+    # Output
+    SearchResponseDoc(
+        name=Reddit Test File
+        SubDocs=1
+    )
+
+res.docs[0]
+
+# Output
+SearchResponseDoc(
+    name=Reddit Test File
+    SubDocs=1
+)
+```
+
+
+# Properties
+<ParamField path="data" type="ResponseDoc[]">
+    list of [ResponseDoc](<./ResponseDoc>) objects
+</ParamField>
+
+# Methods
+<ParamField path="by_id(id: str)" type="OutputGroup">
+    get a document by id
+</ParamField>

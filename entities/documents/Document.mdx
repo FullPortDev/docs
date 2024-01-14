@@ -50,6 +50,9 @@ Creates chunks of context every `n_seconds`
 # doc = Document.create(name="Name Of Collection", type="embedded", ttl=24)
 
 # the simplest way
+doc = ezllm.upload(file)
+
+# upload to a specific collection
 doc = await col.upload(file)
 
 # but you can also provide params
@@ -83,8 +86,46 @@ await doc.search("SEC Filings Mentioning Climate Change")
 await doc.filter(page=1)
 ```
 
+# Methods
 
-## Create Props
+## Filter
+Once a filter is applied, the metadata filter will exclude parts of the documents
+
+<ParamField path="metadata" type="MetadataFilter">
+    [BETA] metadata
+</ParamField>
+
+## Search
+<ParamField path="query" type="string">
+    Your search query
+</ParamField>
+<ParamField path="group" type="Literal['document' | 'collection' | 'all']">
+    How you want the documents grouped, this is useful for applying methods against a specific grouping of context
+
+    i.e you want to Q&A each document individually so you group by `document` or you want a single answer so you group by `all`
+
+    [Read more about grouping here](</retrieval/Retrieval#grouping>)
+</ParamField>
+<ParamField path="n_docs" type="int">
+    Number of documents to return
+</ParamField>
+
+## Scan
+<ParamField path="group" type="Literal['document' | 'collection' | 'all']">
+    How you want the documents grouped, this is useful for applying methods against a specific grouping of context
+
+    i.e you want to Q&A each document individually so you group by `document` or you want a single answer so you group by `all`
+
+    [Read more about grouping here](</retrieval/Retrieval#grouping>)
+</ParamField>
+
+
+## Run
+<ParamField path="method" type="Method">
+    [A Method object](</methods/Methods>)
+</ParamField>
+
+# Init Arguments
 <ParamField path="name" type="string" required>
     the name of the document
 </ParamField>
@@ -98,12 +139,15 @@ await doc.filter(page=1)
     - html
 </ParamField>
 
-<ParamField query="ttl" type="enum" default="24">
-    Number of hours for the document to live before it is deleted
+<ParamField path="client" type="Client">
+    optionally pass a client
 </ParamField>
+{/* <ParamField query="ttl" type="enum" default="24">
+    Number of hours for the document to live before it is deleted
+</ParamField> */}
 
 
-## Class Members
+# Properties
 <ParamField path="id" type="string" required>
     the document id
 </ParamField>

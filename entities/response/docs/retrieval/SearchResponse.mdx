@@ -1,0 +1,49 @@
+---
+title: Search Response
+description: EzLLM Search Response
+---
+
+extends [Response Base](</entities/response/Response>)
+
+The only discernable difference is that `SearchResponseDoc` has a different type of Subdoc called `SearchSubdocs` which includes a `.score` method
+
+```
+SearchResponse(
+    costs=ResponseCosts(
+        total_cost=10.0,
+        costs=[
+            ResponseCost(cost=10, date='2024-01-12T05:38:08.266074', step='retrieve', usage=1, limitType='search', limitId='search', desc=None, reportedCost=None)
+        ]
+    )
+    doc_groups=SearchDocOutputGroups(
+        groups=[
+            SearchDocOutputGroup(
+                id=None
+                type=all
+                data=SearchResponseDocs(
+                    docs=[
+                        SearchResponseDoc(
+                            name=Reddit Test File
+                            SubDocs=1
+                        )
+                    ]
+                )
+            )
+        ]
+    )
+)
+```
+
+## Code Snippets
+```py
+res = col.search("Query")
+for doc in res.docs:
+    print(doc.score)
+```
+
+
+# SearchSubDoc Properties
+extends [SubDoc](/entities/documents/SubDocuments)
+<ParamField path="score" type="float">
+    number from 0 - 1, higher value means that the subdocuments context was more semenatically similar to the search query
+</ParamField>

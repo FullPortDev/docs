@@ -1,0 +1,33 @@
+---
+title: Filter Response
+description: EzLLM Filter Response
+---
+
+extends [Response Base](</entities/response/Response>)
+
+```py
+FilterResponse(
+    costs=ResponseCosts(
+        total_cost=0.0,
+        costs=[
+
+        ]
+    )
+    doc_groups=DocOutputGroups(
+        groups=[
+            DocOutputGroup(
+                id=None,
+                type="all",
+                data=ResponseDocs(
+                    docs=[
+                        ResponseDoc(
+                            name="Test File",
+                            SubDocs=1
+                        )
+                    ]
+                )
+            )
+        ]
+    )
+)
+```

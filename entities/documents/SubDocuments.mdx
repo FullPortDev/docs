@@ -18,30 +18,43 @@ Sub documents also have metadata attached to them which differs depending on the
 
 # Code Snippets
 
-## Retrieving a Sub Document Directly
-```py
-subdoc = SubDocument("id")
-```
-
 ## Iterating Subdocs
+the `__repr__` of subdocs truncates the output at 500 characters and displays `(MORE CONTENT ...)`
+
 ```py
 for subdoc in doc.subdocs:
     print(subdoc)
+
+# Output
+SubDocs(
+    subdocs=[
+        SubDoc(
+            index=0
+            metadata={'cid': '659a54a5d9569e7b627dea93', 'did': '659a54a5d9569e7b627dea93', 'index': 0, 'wid': 'test'}
+            content="""
+                CONTENT FROM THIS PART OF THE DOCUMENT
+
+                (MORE CONTENT ...)
+            """
+        )
+    ]
+)
 ```
 
 
-## Props
-
-<ParamField path="id" type="string" required>
-    and auto generated id assigned to the subdoc
-</ParamField>
-
+## Properties
 <ParamField path="metadata" type="dict">
     a dictionary of the metadata fields from the document
 </ParamField>
+<ParamField path="index" type="int">
+    the order the subdocs were parsed from the original document
+</ParamField>
+<ParamField path="content" type="str">
+    the text content of the subdoc
+</ParamField>
 
-## Sub Doc Metadata
-this is the default subdoc metadata across all Sub Document types
+### SubDoc Metadata
+this is the default subdoc metadata across all Sub Document types. Different file types will include different metadata (i.e. PDF will include `page` & `x1,y1,x2,y2` coordinates for which the SubDoc was parsed)
 
 <ParamField path="cid" type="string" required>
     The collection id it belongs to
@@ -52,3 +65,7 @@ this is the default subdoc metadata across all Sub Document types
 <ParamField path="wid" type="string" required>
     the workspace id it belongs to
 </ParamField>
+<ParamField path="index" type="int" required>
+    the order the subdocs were parsed from the original document
+</ParamField>
+

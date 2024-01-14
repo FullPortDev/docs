@@ -3,6 +3,11 @@ title: Image Document
 description: 'EzLLM Image Document'
 ---
 
+<Card title="BETA" icon="code" iconType="duotone" color="#FF7272">
+    This feature is in a closed beta
+
+    [click here to join](<https://forms.gle/km98JPdAfBNZucoE6>)
+</Card>
 
 An Image Document leverages `gpt-4-vision-preview` model to run a variety of methods
 
@@ -11,3 +16,27 @@ An Image Document leverages `gpt-4-vision-preview` model to run a variety of met
 - Summarize
 - Extraction
 - Classification
+
+
+## Examples
+A cool example with this is to use it to classify and sort your images with a greater level of intelligence and flexibility than any other image classifier before.
+
+You could even chain the services together to
+1. extract `text_description` from an image
+2. then have semantic search on the images
+
+creating a next-generation image searching tool
+
+```py
+class PhotoClassifierModel:
+    is_landscape: bool
+    is_portrait: bool
+    text_description: str
+    ...
+
+
+image = ImageDocument(file)
+
+
+image.run(ExtractionMethod(PhotoClassifierModel))
+```

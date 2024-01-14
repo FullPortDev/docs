@@ -1,0 +1,72 @@
+---
+title: Extraction Method Response
+description: EzLLM Extraction Method Response
+---
+
+
+```py
+ExtractionMethodResponse(
+    costs=ResponseCosts(
+        total_cost=4.0,
+        costs=[
+            ResponseCost(cost=2, date='2024-01-10T07:39:46.393895', step='method', usage=1196, limitType='llm', limitId='gpt-3.5', desc=None, reportedCost=0.003084)
+            ...
+        ]
+    )
+    # add the include_docs=True argument to return docs
+    doc_groups=DocOutputGroups(
+        groups=[
+
+        ]
+    )
+    output_groups=ExtractionOutputGroups(
+        groups=[
+            ExtractionOutputGroup(
+                type="all"
+                id="test_id"
+                output=ExtractionOutputData(
+                    data={ # Any, based off of the PydanticModel provided
+                        "posts": [
+                            {
+                                "post_title": "[Serious] What's the scariest fact you wish you didn't know?",
+                                "upvotes": 2937,
+                                "subreddit": "AskReddit",
+                                "user": "UserNameRedacted"
+                            },
+                            ...
+                        ]
+                    }
+                )
+            )
+        ]
+    )
+)
+```
+
+
+# Code Snippets
+
+## Iterating Through Questions & Answers
+```py
+df = response.df()
+
+# Output
+PostsDataFrame
+
+
+dfs = response.df()
+
+#Output
+{
+    'posts' : PostsDataFrame
+}
+```
+
+
+# Properties
+<ParamField path="df" type="PandasDataFrame">
+    only works if your pydantic model has a single list of objects, otherwise you will have to use `.dfs`
+</ParamField>
+<ParamField path="dfs" type="Dict[str, PandasDataFrame]">
+    only works if your pydantic model has a one or many list of objects, otherwise your output data wouldn't be tabular
+</ParamField>

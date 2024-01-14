@@ -3,3 +3,47 @@ title: Scan
 description: 'EzLLM Scan Retrieval'
 ---
 
+Scan is the default method, so calling `doc.run()` is functionally equivelant to `doc.scan().run()`
+
+```py
+response = doc.scan()
+
+print(response)
+
+# Output
+ScanRetrieval(
+    output=ScanResponse(
+        costs=ResponseCosts(
+            total_cost=0.0,
+            costs=[
+
+            ]
+        )
+        doc_groups=DocOutputGroups(
+            groups=[
+                DocOutputGroup(
+                    id=None,
+                    type="all",
+                    data=ResponseDocs(
+                        docs=[
+                            ResponseDoc(
+                                name="Test File"
+                                SubDocs=1
+                            )
+                        ]
+                    )
+                )
+            ]
+        )
+    )
+    retrieval={'filter': {'collections': [], 'documents': ['659a54a5d9569e7b627dea93'], 'subdocs': [], 'metadata': {}}, 'retrieval': {'type': 'scan', 'accumulate': {'type': 'all'}, 'metadata': {}}}
+)
+```
+# Props
+<ParamField path="group" type="Literal['document' | 'collection' | 'all']">
+    How you want the documents grouped, this is useful for applying methods against a specific grouping of context
+
+    i.e you want to Q&A each document individually so you group by `document` or you want a single answer so you group by `all`
+
+    [Read more about grouping here](</retrieval/Retrieval#grouping>)
+</ParamField>

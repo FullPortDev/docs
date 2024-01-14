@@ -3,94 +3,48 @@ title: Response Model
 description: EzLLM Response Model
 ---
 
-the response model has 
-# TODO
-[ ] return cost / token usage
+the Response allows you to easily interact with the output of
+1. Filter
+2. Retrievals
+3. Methods
+
+The ResponseModel has properties and a standard format similar across all response types
 
 ```py
-Output(
-    docs?: ResponseDocument[]
-    output: MethodOutput
+ResponseBase(
+    costs=ResponseCosts(
+        ResponseCost(
+            cost=0.01061,
+            limitId='gpt-4',
+            ...
+        )
+    )
+    docs=ResponseDocs(
+        ResponseDoc(
+            name='Doc Name'
+        )
+    )
+    doc_groups=DocOutputGroups(
+        OutputGroup(
+            type='collection'
+            id='col_id',
+            data=ResponseDocs(
+                ...
+            )
+        )
+    )
 )
-```
 
-# Retrieval Response Model
-for when you retrieve documents
-
-## Scan Response
-```py
-doc.filter(page=1).scan().get()
-
-# Output
-{
-    "docs" : [
-        {
-            "name": "Document Name",
-            "type" : "pdf",
-            "subdocs" : [ # the subdocs returned from the retrieval
-                {
-                    "page" : 1,
-                    "content" : "Text of the subdocument"
-                }
-            ]
-        }
-    ]
-}
-```
-
-
-## Search Response
-Similar to the retriveal response except that it includes search scores
-
-```py
-doc.filter(page=1).search("Relevant Documentation").get()
-
-# Output
-{
-    "docs" : [
-        {
-            "name" : "Document Name",
-            ... 
-            "score" : 0.5, # average score of subdocuments
-            "subdocs" : [
-                {
-                    "page" : 1,
-                    "score" : 0.5, # sub doc score
-                    "content" : "Text of the subdocument"
-                }
-            ]
-        }
-    ]
-}
-```
-
-# Method Response Model
-When you run a method against a retrieval
-
-the output type can change depending on the method applied, so reference the [Methods documentation](</methods/Methods>) for the exact output.
-
-```py
-
-doc.filter(page=1).scan().run(QA("Who is the author?"), include=True)
-
-# Output
-{
-    "docs" : [
-        {
-            "name" : "Document Name",
-            ... 
-            "score" : 0.5, # average score of subdocuments
-            "subdocs" : [
-                {
-                    "page" : 1,
-                    "score" : 0.5, # sub doc score
-                    "content" : "Text of the subdocument"
-                }
-            ]
-        }
-    ],
-    "output" : {
-        "Who is the author?" : ""
-    }
-}
+MethodBase(
+    ... # MethodBase extends ResponseBase
+    output: MethodOutput(
+        groups: OutputGroups(
+            OutputGroup(
+                type='collection',
+                id='col_id',
+                data=OutputData
+            )
+        )
+    )
+)
 ```

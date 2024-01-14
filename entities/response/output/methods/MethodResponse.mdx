@@ -1,0 +1,36 @@
+---
+title: Method Response
+description: EzLLM Method Response
+---
+
+Method responses follow the same pattern of OutputGroups, OutputGroup and OutputData where the type of OutputData is based off of the method and method configuration
+
+```py
+MethodResponse(
+    costs=ResponseCosts(
+        total_cost=0.08994,
+        costs=[
+            ResponseCost(cost=0.01061, date='2023-12-27T18:11:18.722257', step='method', usage=835, limitType='llm', limitId='gpt-4-1106-preview', desc=None, reportedCost=None)
+            ...
+        ]
+    )
+    # add the include_docs=True argument to return docs
+    doc_groups=DocOutputGroups(
+        groups=[
+
+        ]
+    )
+    output_groups=OutputGroups(
+        groups=[
+            OutputGroup(
+                type="document"
+                id="658b4e441f41ead7592562de"
+                output=OutputData(
+                    data=Any # depends on what method you use
+                )
+            )
+            ...
+        ]
+    )
+)
+```

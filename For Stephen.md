@@ -396,3 +396,39 @@ class Action:
 ```
 
 
+
+
+# December 20th
+
+```py
+
+class DocGrouping:
+    type: 'collection' | 'document' | 'all' = 'all'
+    id: str # id of the resource grouped by
+    docs: List[Document]
+
+class Document:
+    subdocs: List[Subdoc]
+
+class Subdoc:
+    content: string
+    score: float
+
+
+# 1. Filter
+class Filter:
+    def get() -> List[Document]:
+
+# 2. Retrieval
+class Search:
+    def search() -> List[DocGrouping]:
+        pass
+
+# 3. Method
+class RunOutput:
+    docs: List[DocGrouping] = None # optional
+    total_cost: float
+    costs: List[Cost] # not too important to include in the SDK rn
+    output: Any # different depending on the Method, could be a string, array, dict ... 
+
+```

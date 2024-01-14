@@ -1,0 +1,24 @@
+---
+title: Output Group
+description: EzLLM Output Group
+---
+
+A single output grouping
+
+
+# Properties
+<ParamField path="id" type="str">
+    id of the grouping
+    
+    `document_id` if a document grouping
+    
+    `collection_id` if a collection grouping
+
+    `None` if an all grouping
+</ParamField>
+<ParamField path="type" type="str">
+    grouping type, `all`, `collection`, `document`
+</ParamField>
+<ParamField path="data" type="OutputData">
+    [OutputData](<./OutputData>) object
+</ParamField>
