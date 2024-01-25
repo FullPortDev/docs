@@ -8,14 +8,13 @@ The EzLLM Client automatically instantiates and authenticates itself using the `
 
 # Env File
 ```sh
-EZLLM_ACCESS_KEY = YOUR_API_HERE
-EZLLM_SECRET = YOUR_SECRET_HERE
+EZLLM_API_KEY = YOUR_API_KEY_HERE
 EZLLM_API_URL = https://api.ezllm.io # optional
 EZLLM_RUN_URL = https://run.ezllm.io # optional
 ```
 
 # Credentials
-The `EZLLM_ACCESS_KEY` and `EZLLM_SECRET` can be found in the API Users section when creating a user.
+The `EZLLM_API_KEY` can be found in the API Users section when creating a user.
 
 
 # Manual Instantiatiation
@@ -26,8 +25,7 @@ The manual client instantiation needs to be the first EzLLM call. If any other e
 
 ```py
 Client(
-    key='EZLLM_ACCESS_KEY',
-    secret='EZLLM_SECRET',
+    key='EZLLM_API_KEY',
     api_url='https://api.ezllm.io', # optional
     run_url='https://run.ezllm.io', # optional
 )
@@ -41,15 +39,13 @@ doc = Document("DOC_ID")
 ## Pass a Specific Client to Specific Resources
 ```py
 c1 = Client(
-    key='EZLLM_ACCESS_KEY',
-    secret='EZLLM_SECRET',
+    key='EZLLM_API_KEY',
     api_url='https://api.ezllm.io', # optional
     run_url='https://run.ezllm.io', # optional
 )
 
 c2 = Client(
-    key='EZLLM_ACCESS_KEY',
-    secret='EZLLM_SECRET',
+    key='EZLLM_API_KEY',
     api_url='https://api.ezllm.io', # optional
     run_url='https://run.ezllm.io', # optional
 )
